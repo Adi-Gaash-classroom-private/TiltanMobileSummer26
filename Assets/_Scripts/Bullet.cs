@@ -4,6 +4,8 @@ namespace TiltanMobileSummer2026
 {
     public class Bullet : MonoBehaviour
     {
+        
+        public GameObjectPool GameObjectPool;
         public float speed = 15f;
         public float maxDistance = 20f; // distance from spawn
 
@@ -20,7 +22,7 @@ namespace TiltanMobileSummer2026
                 transform.position, _startPosition);
             if (distance >= maxDistance)
             {
-                Destroy(gameObject);
+                GameObjectPool.ReturnToPool(gameObject);
                 return;
             }
 

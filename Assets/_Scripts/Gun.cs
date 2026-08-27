@@ -4,7 +4,7 @@ namespace TiltanMobileSummer2026
 {
     public class Gun : MonoBehaviour
     {
-        [Header("Spawn Settings")] public GameObject bulletPrefab;
+        public GameObjectPool GameObjectPool;
         public float fireRate = 0.15f; // seconds between shots
         public Transform ShootingPoint;
         private float _timer;
@@ -14,8 +14,12 @@ namespace TiltanMobileSummer2026
             _timer += Time.deltaTime;
             if (_timer >= fireRate && Input.GetKey(KeyCode.Space))
             {
-                Instantiate(bulletPrefab, ShootingPoint.position,
-                    ShootingPoint.rotation);
+                GameObject bullet = GameObjectPool.GetPooledObject();
+                if (bullet != null)
+                {
+                    bullet.transform.position = ShootingPoint.position;
+                    bullet.transform.rotation = ShootingPoint.rotation;
+                }
                 _timer = 0f;
             }
         }
