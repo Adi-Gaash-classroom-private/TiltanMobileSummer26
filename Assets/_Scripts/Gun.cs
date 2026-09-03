@@ -5,21 +5,25 @@ namespace TiltanMobileSummer2026
     public class Gun : MonoBehaviour
     {
         public GameObjectPool GameObjectPool;
-        public float fireRate = 0.15f; // seconds between shots
+        public WeaponSO weaponData;
+        public float fallbackFireRate = 0.15f; // seconds between shots when no weapon data provided
         public Transform ShootingPoint;
         private float _timer;
 
         private void Update()
         {
             _timer += Time.deltaTime;
-            if (_timer >= fireRate && Input.GetKey(KeyCode.Space))
+            float interval = fallbackFireRate;
+            if (weaponData != null && weaponData.fireRate > 0f)
+                interval = 1f / weaponData.fireRate; // weaponData.fireRate treated as shots-per-second
+
+            if (_timer >= interval && Input.GetKey(KeyCode.Space))
             {
-                GameObject bullet = GameObjectPool.GetPooledObject();
-                if (bullet != null)
+                if (weaponData != null)
                 {
-                    bullet.transform.position = ShootingPoint.position;
-                    bullet.transform.rotation = ShootingPoint.rotation;
+                    weaponData.ExecuteFire(ShootingPoint, GameObjectPool);
                 }
+             
                 _timer = 0f;
             }
         }
