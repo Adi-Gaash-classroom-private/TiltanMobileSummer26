@@ -13,7 +13,7 @@ namespace TiltanMobileSummer2026
 
         public GameObject weaponPrefab;
 
-        public void ExecuteFire(Transform muzzle, GameObjectPool pool)
+        public virtual void ExecuteFire(Transform muzzle, GameObjectPool pool)
         {
             if (muzzle == null || pool == null) return;
             SpawnBullet(muzzle.position, muzzle.rotation, pool);
