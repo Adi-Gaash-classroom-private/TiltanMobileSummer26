@@ -1,62 +1,65 @@
 ﻿using UnityEngine;
 
-public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
+namespace TiltanMobileSummer2026.Generic
 {
-    private static T _instance;
-    private static readonly object _lock = new object();
-    private static bool applicationIsQuitting = false;
-
-    public static T Instance
+    public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        
-        get
+        private static T _instance;
+        private static readonly object _lock = new object();
+        private static bool applicationIsQuitting = false;
+
+        public static T Instance
         {
-           
-            if (_instance == null)
+
+            get
             {
-                _instance = (T)FindObjectOfType(typeof(T));
 
                 if (_instance == null)
                 {
-                    GameObject singletonObject = new GameObject();
-                    _instance = singletonObject.AddComponent<T>();
-                    singletonObject.name = typeof(T).ToString() + " (Singleton)";
-                }
-                else
-                {
-                    // If the instance already exists in the scene, make sure we're using the same object
-                    _instance = _instance.GetComponent<T>();
+                    _instance = (T)FindObjectOfType(typeof(T));
+
+                    if (_instance == null)
+                    {
+                        GameObject singletonObject = new GameObject();
+                        _instance = singletonObject.AddComponent<T>();
+                        singletonObject.name = typeof(T).ToString() + " (Singleton)";
+                    }
+                    else
+                    {
+                        // If the instance already exists in the scene, make sure we're using the same object
+                        _instance = _instance.GetComponent<T>();
+                    }
+
+
                 }
 
-                
+                return _instance;
+
             }
-            
-            return _instance;
-            
         }
-    }
 
-    protected virtual void Awake()
-    {
-        if (_instance == null)
+        protected virtual void Awake()
         {
-            _instance = this as T;
-            DontDestroyOnLoad(gameObject);
+            if (_instance == null)
+            {
+                _instance = this as T;
+                DontDestroyOnLoad(gameObject);
+            }
+            else if (_instance != this)
+            {
+                Debug.LogWarning($"[Singleton] Another instance of {typeof(T)} already exists! Destroying this one.");
+                Destroy(gameObject);
+            }
         }
-        else if (_instance != this)
+
+        private void OnApplicationQuit()
         {
-            Debug.LogWarning($"[Singleton] Another instance of {typeof(T)} already exists! Destroying this one.");
-            Destroy(gameObject);
+            applicationIsQuitting = true;
         }
-    }
 
-    private void OnApplicationQuit()
-    {
-        applicationIsQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-        applicationIsQuitting = true;
+        private void OnDestroy()
+        {
+            applicationIsQuitting = true;
+        }
     }
 }

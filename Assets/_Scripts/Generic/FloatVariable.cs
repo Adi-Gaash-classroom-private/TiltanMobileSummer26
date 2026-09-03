@@ -7,10 +7,19 @@ namespace TiltanMobileSummer2026.Generic
     {
         [SerializeField] private float value;
 
+        public System.Action<float> OnValueChanged;
+
         public float Value
         {
             get => value;
-            set => this.value = value;
+            set
+            {
+                if (!this.value.Equals(value))
+                {
+                    this.value = value;
+                    OnValueChanged?.Invoke(this.value);
+                }
+            }
         }
     }
 }
