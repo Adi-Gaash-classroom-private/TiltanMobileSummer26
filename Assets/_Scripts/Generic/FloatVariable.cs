@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace TiltanMobileSummer2026.Generic
 {
@@ -6,6 +9,7 @@ namespace TiltanMobileSummer2026.Generic
     public class FloatVariable : ScriptableObject
     {
         [SerializeField] private float value;
+        [SerializeField] private float initValue;
 
         public System.Action<float> OnValueChanged;
 
@@ -21,5 +25,32 @@ namespace TiltanMobileSummer2026.Generic
                 }
             }
         }
+
+        public float InitValue
+        {
+            get => initValue;
+            set => initValue = value;
+        }
+
+#if UNITY_EDITOR
+        private void OnEnable()
+        {
+            EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
+        }
+
+        private void OnDisable()
+        {
+            EditorApplication.playModeStateChanged -= OnPlayModeStateChanged;
+        }
+
+        private void OnPlayModeStateChanged(PlayModeStateChange state)
+        {
+            // When exiting play mode in the editor, reset the variable to the initialization value.
+            if (state == PlayModeStateChange.ExitingPlayMode)
+            {
+                Value = initValue;
+            }
+        }
+#endif
     }
 }
