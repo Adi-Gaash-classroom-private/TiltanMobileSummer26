@@ -4,12 +4,16 @@ namespace TiltanMobileSummer2026
 {
     public class Gun : MonoBehaviour
     {
+        
+        public GeneralSettingSO generalSettings;
         public GameObjectPool GameObjectPool;
         public WeaponSO weaponData;
         public float fallbackFireRate = 0.15f; // seconds between shots when no weapon data provided
         public Transform ShootingPoint;
         private float _timer;
 
+        
+        
         private void Update()
         {
             _timer += Time.deltaTime;

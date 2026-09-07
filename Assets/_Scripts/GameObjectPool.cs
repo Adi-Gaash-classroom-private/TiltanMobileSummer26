@@ -6,9 +6,6 @@ namespace TiltanMobileSummer2026
 {
     public class GameObjectPool : MonoBehaviour
     {
-        
-        
-        
         [SerializeField] private GameObject prefab;
         [SerializeField] private int poolSize = 10;
 

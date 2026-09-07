@@ -10,8 +10,7 @@ namespace TiltanMobileSummer2026
         public float fireRate = 4.0f;
         public float range = 40f;
         public int maxAmmo = 12;
-
-        public GameObject weaponPrefab;
+        
 
         public virtual void ExecuteFire(Transform muzzle, GameObjectPool pool)
         {
