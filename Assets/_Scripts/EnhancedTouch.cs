@@ -21,6 +21,7 @@ namespace TiltanMobileSummer2026
             foreach (var touch in Touch.activeTouches)
             {
                 Debug.Log($"Touch ID: {touch.touchId}, Position: {touch.screenPosition}, Phase: {touch.phase}");
+                
             }
         }
     }

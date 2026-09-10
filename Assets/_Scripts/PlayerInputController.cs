@@ -19,7 +19,7 @@ namespace TiltanMobileSummer2026
          */
         private void OnEnable()
         {
-            var gameplayMap = inputAsset.FindActionMap("Gameplay");
+            var gameplayMap = inputAsset.FindActionMap("Player");
         
             moveAction = gameplayMap.FindAction("Move");
             jumpAction = gameplayMap.FindAction("Jump");
