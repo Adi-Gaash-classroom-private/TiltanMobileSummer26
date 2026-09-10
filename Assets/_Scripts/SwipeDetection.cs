@@ -3,69 +3,74 @@ using UnityEngine.InputSystem.EnhancedTouch;
 using Touch = UnityEngine.InputSystem.EnhancedTouch.Touch;
 using InputSystemTouchPhase = UnityEngine.InputSystem.TouchPhase;
 
-public class SwipeDetection : MonoBehaviour
+namespace TiltanMobileSummer2026
 {
-    [SerializeField] private float minSwipeDistance = 50f;
-    [SerializeField] private float maxSwipeTime = 0.5f;
-
-    private Vector2 startPosition;
-    private float startTime;
-    private int trackedTouchId = -1;
-
-    private void OnEnable()
+    public class SwipeDetection : MonoBehaviour
     {
-        EnhancedTouchSupport.Enable();
-    }
+        [SerializeField] private float minSwipeDistancePercentage = 0.1f;
+        [SerializeField] private float maxSwipeTime = 0.5f;
 
-    private void OnDisable()
-    {
-        EnhancedTouchSupport.Disable();
-    }
+        private Vector2 startPosition;
+        private float startTime;
+        private int trackedTouchId = -1;
 
-    private void Update()
-    {
-        foreach (var touch in Touch.activeTouches)
+        private void OnEnable()
         {
-            if (touch.phase == InputSystemTouchPhase.Began && trackedTouchId == -1)
+            EnhancedTouchSupport.Enable();
+        }
+
+        private void OnDisable()
+        {
+            EnhancedTouchSupport.Disable();
+        }
+
+        private void Update()
+        {
+            foreach (var touch in Touch.activeTouches)
             {
-                trackedTouchId = touch.touchId;
-                startPosition = touch.screenPosition;
-                startTime = Time.time;
-            }
-            else if (touch.touchId == trackedTouchId)
-            {
-                if (touch.phase == InputSystemTouchPhase.Ended || touch.phase == InputSystemTouchPhase.Canceled)
+                if (touch.phase == InputSystemTouchPhase.Began && trackedTouchId == -1)
                 {
-                    DetectSwipe(touch.screenPosition);
-                    trackedTouchId = -1;
+                    trackedTouchId = touch.touchId;
+                    startPosition = touch.screenPosition;
+                    startTime = Time.time;
+                }
+                else if (touch.touchId == trackedTouchId)
+                {
+                    if (touch.phase == InputSystemTouchPhase.Ended || touch.phase == InputSystemTouchPhase.Canceled)
+                    {
+                        DetectSwipe(touch.screenPosition);
+                        trackedTouchId = -1;
+                    }
                 }
             }
         }
-    }
 
-    private void DetectSwipe(Vector2 endPosition)
-    {
-        float distance = Vector2.Distance(startPosition, endPosition);
-        float duration = Time.time - startTime;
-
-        if (distance >= minSwipeDistance && duration <= maxSwipeTime)
+        private void DetectSwipe(Vector2 endPosition)
         {
-            Vector2 direction = endPosition - startPosition;
-            Vector2 normalizedDirection = direction.normalized;
+            float distance = Vector2.Distance(startPosition, endPosition);
+            float duration = Time.time - startTime;
 
-            if (Mathf.Abs(normalizedDirection.x) > Mathf.Abs(normalizedDirection.y))
+            float minSwipeDistance = Screen.width * minSwipeDistancePercentage;
+
+            if (distance >= minSwipeDistance && duration <= maxSwipeTime)
             {
-                if (normalizedDirection.x > 0)
-                    Debug.Log("Swipe Right");
+                Vector2 direction = endPosition - startPosition;
+                Vector2 normalizedDirection = direction.normalized;
+
+                if (Mathf.Abs(normalizedDirection.x) > Mathf.Abs(normalizedDirection.y))
+                {
+                    if (normalizedDirection.x > 0)
+                        Debug.Log("Swipe Right");
+                    else
+                        Debug.Log("Swipe Left");
+                }
                 else
-                    Debug.Log("Swipe Left");
-            }
-            else
-            {
-                if (normalizedDirection.y > 0)
-                    Debug.Log("Swipe Up");
-                else
-                    Debug.Log("Swipe Down");
+                {
+                    if (normalizedDirection.y > 0)
+                        Debug.Log("Swipe Up");
+                    else
+                        Debug.Log("Swipe Down");
+                }
             }
         }
     }
