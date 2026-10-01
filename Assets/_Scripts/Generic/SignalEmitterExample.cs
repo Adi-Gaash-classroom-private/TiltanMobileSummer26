@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 
-public class SignalEmitterExample : MonoBehaviour
+namespace TiltanMobileSummer2026
 {
-    // Call this function to manually fire the signal
-    public void EmittingTheSignal()
+    public class SignalEmitterExample : MonoBehaviour
     {
-        Debug.Log("Signal emitted!");
-        
+        // Call this function to manually fire the signal
+        public void EmittingTheSignal()
+        {
+            Debug.Log("Signal emitted!");
+        }
     }
 }

@@ -1,24 +1,27 @@
 using UnityEngine;
 
-public class LineRendererDemo : MonoBehaviour
+namespace TiltanMobileSummer2026
 {
-    LineRenderer lineRenderer;
-
-    void Awake()
+    public class LineRendererDemo : MonoBehaviour
     {
-        lineRenderer = GetComponent<LineRenderer>();
-    }
+        LineRenderer lineRenderer;
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
+        void Awake()
         {
-            // Clear and start fresh
-            lineRenderer.positionCount = 0;
+            lineRenderer = GetComponent<LineRenderer>();
         }
 
-        // Append a point at the transform's position each frame
-        lineRenderer.positionCount++;
-        lineRenderer.SetPosition(lineRenderer.positionCount - 1, transform.position);
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                // Clear and start fresh
+                lineRenderer.positionCount = 0;
+            }
+
+            // Append a point at the transform's position each frame
+            lineRenderer.positionCount++;
+            lineRenderer.SetPosition(lineRenderer.positionCount - 1, transform.position);
+        }
     }
 }

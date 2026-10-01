@@ -1,21 +1,25 @@
 ﻿using UnityEngine;
 using UnityEngine.Playables;
 
-[System.Serializable]
-public class CustomPlayableAsset : PlayableAsset
+
+namespace TiltanMobileSummer2026
 {
-    public string sampleMessage = "Hello World";
-
-    // Factory method to instantiate the behavior piece of the playable tree
-    public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+    [System.Serializable]
+    public class CustomPlayableAsset : PlayableAsset
     {
-        // Create a script playable with the behavior logic
-        var playable = ScriptPlayable<CustomPlayableBehavior>.Create(graph);
-        
-        // Access the behavior instance to inject the data fields
-        CustomPlayableBehavior behavior = playable.GetBehaviour();
-        behavior.sampleMessage = sampleMessage;
+        public string sampleMessage = "Hello World";
 
-        return playable;
+        // Factory method to instantiate the behavior piece of the playable tree
+        public override Playable CreatePlayable(PlayableGraph graph, GameObject owner)
+        {
+            // Create a script playable with the behavior logic
+            var playable = ScriptPlayable<CustomPlayableBehavior>.Create(graph);
+
+            // Access the behavior instance to inject the data fields
+            CustomPlayableBehavior behavior = playable.GetBehaviour();
+            behavior.sampleMessage = sampleMessage;
+
+            return playable;
+        }
     }
 }
