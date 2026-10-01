@@ -15,5 +15,13 @@ namespace TiltanMobileSummer2026
             int damageAmount = UnityEngine.Random.Range(5, 15); // Random damage amount between 5 and 15
             damageNumber.GetComponent<DamageNumberTween>().ExecuteDamageText(damageAmount, transform.position);
         }
+        
+        
+        public void ExecuteDamageText()
+        {
+            DamageNumberTween damageNumber = starShipDamagePooler.GetPooledObject().GetComponent<DamageNumberTween>();
+            int damageAmount = UnityEngine.Random.Range(5, 15); // Random damage amount between 5 and 15
+            damageNumber.ExecuteDamageText(damageAmount, transform.position);
+        }
     }
 }
