@@ -21,6 +21,7 @@ namespace TiltanMobileSummer2026
         {
             for (int i = 0; i < poolSize; i++)
             {
+                
                 GameObject obj = InitObject();
                 obj.SetActive(false);
                 pool.Enqueue(obj);
@@ -31,7 +32,7 @@ namespace TiltanMobileSummer2026
         {
             
             GameObject gameObject = Instantiate(prefab);
-            gameObject.GetComponent<Bullet>().GameObjectPool = this;
+            gameObject.GetComponent<DamageNumberTween>().GameObjectPool = this;
             return gameObject;
         }
 
