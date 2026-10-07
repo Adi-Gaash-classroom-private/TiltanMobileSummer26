@@ -34,6 +34,8 @@ namespace TiltanMobileSummer2026
         {
             Debug.Log($"Clip paused/stopped: {message}");
         }
+        
+        
     }
 
 }
