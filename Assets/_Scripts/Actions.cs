@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace TiltanMobileSummer2026
 {
-    public class ProtectedActions
+    public class ProtectedEvents
     {
         // Define a delegate for the score change event - delegates are like function pointers, they define the signature of the method that can be called when the event is triggered
         // Because this is a delegate, it can be used to define an event, that can only be controlled from within this class, and not from outside of it!
