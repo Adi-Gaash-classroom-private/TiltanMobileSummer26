@@ -7,8 +7,27 @@ namespace TiltanMobileSummer2026
 {
 
 
+   
+    
     public static class JsonWithNewtonsoft
     {
+        
+        public static T ReadFromJsonFile<T>(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return default;
+            }
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<T>(json);
+        }
+
+        public static void WriteToJsonFile<T>(string filePath, T objectToWrite)
+        {
+            string json = JsonConvert.SerializeObject(objectToWrite, Formatting.Indented);
+            File.WriteAllText(filePath, json);
+        }
+        
         // This function will save a list of GameData objects as a JSON file
         public static void SavePlayerDataList(List<GameData> dataList, string fileName)
         {

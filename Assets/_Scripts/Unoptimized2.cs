@@ -30,7 +30,7 @@ namespace Unoptimized
                     spawnedObjects[i].transform.position.z
                 );
             }
-
+            
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 foreach (GameObject go in GameObject.FindObjectsOfType<GameObject>())
