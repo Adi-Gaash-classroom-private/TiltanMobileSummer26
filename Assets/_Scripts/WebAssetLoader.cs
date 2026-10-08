@@ -21,7 +21,7 @@ namespace TiltanMobileSummer2026
         {
             using (UnityWebRequest request = UnityWebRequestTexture.GetTexture(url))
             {
-                var operation = request.SendWebRequest();
+                UnityWebRequestAsyncOperation operation = request.SendWebRequest();
             
                 while (!operation.isDone)
                 {
