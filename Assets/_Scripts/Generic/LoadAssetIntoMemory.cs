@@ -2,7 +2,6 @@
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-
 namespace TiltanMobileSummer2026._Scripts.Generic
 {
     public class LoadAssetIntoMemory : MonoBehaviour
